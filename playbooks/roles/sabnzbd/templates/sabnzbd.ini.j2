@@ -1,0 +1,22 @@
+[misc]
+port = {{ sabnzbd_port }}
+host = {{ sabnzbd_host }}
+download_dir = {{ sabnzbd_download_dir }}
+complete_dir = {{ sabnzbd_complete_dir }}
+script_dir = {{ sabnzbd_script_dir or '""' }}
+https_port = {{ sabnzbd_https_port }}
+https_key = {{ sabnzbd_https_key }}
+https_cert = {{ sabnzbd_https_cert }}
+enable_https = {{ sabnzbd_enable_https }}
+api_key = {{ sabnzbd_api_key or '""' }}
+nzb_key = {{ sabnzbd_nzb_key or '""' }}
+web_color = {{ sabnzbd_web_color or '""' }}
+permissions = {{ sabnzbd_permissions or '""' }}
+ignore_samples = {{ sabnzbd_ignore_samples }}
+unpack_check = {{ sabnzbd_unpack_check }}
+no_dupes = {{ sabnzbd_no_dupes }}
+top_only = {{ sabnzbd_top_only }}
+nice = {{ sabnzbd_nice or '""' }}
+{% for key, value in sabnzbd_extra_config_opts.iteritems() %}
+{{ key }} = {{ value or '""' }}
+{% endfor %}

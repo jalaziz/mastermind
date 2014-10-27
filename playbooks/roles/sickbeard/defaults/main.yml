@@ -1,0 +1,102 @@
+---
+sickbeard_repo: https://github.com/midgetspy/Sick-Beard.git
+sickbeard_version: development
+sickbeard_install_dir: /opt/sickbeard
+sickbeard_data_dir: /var/lib/sickbeard
+sickbeard_config_dir: /etc/sickbeard
+sickbeard_config_file: "{{ sickbeard_config_dir }}/config.ini"
+sickbeard_pid_dir: /var/run/sickbeard
+sickbeard_root_dir: ""
+sickbeard_tv_download_dir: ""
+sickbeard_autoprocesstv_script_dir: "{{ sickbeard_install_dir }}/autoProcessTV"
+
+sickbeard_host: localhost
+sickbeard_port: 8081
+sickbeard_web_root: ""
+sickbeard_enable_https: 0
+sickbeard_https_cert: server.crt
+sickbeard_https_key: server.key
+
+sickbeard_display_all_seasons: 1
+sickbeard_use_api: 1
+sickbeard_api_key: ""
+sickbeard_use_nzbs: 1
+sickbeard_use_torrents: 1
+sickbeard_nzb_method: blackhole
+sickbeard_usenet_retention: 500
+sickbeard_search_frequency: 40
+sickbeard_quality_default: 3
+sickbeard_status_default: 5
+sickbeard_naming_pattern: "%SN - %Sx%0E - %EN"
+sickbeard_naming_custom_abd: 0
+sickbeard_naming_abd_pattern: "%SN - %A-D - %EN"
+sickbeard_naming_multi_ep: 1
+sickbeard_launch_browser: 0
+sickbeard_keep_processed_dir: 0
+sickbeard_move_associated_files: 1
+sickbeard_filter_associated_files: ""
+sickbeard_process_automatically: 0
+sickbeard_rename_episodes: 1
+
+sickbeard_nzb_dir: ""
+sickbeard_torrent_dir: ""
+
+sickbeard_sab_username: ""
+sickbeard_sab_password: ""
+sickbeard_sab_apikey: ""
+sickbeard_sab_category: tv
+sickbeard_sab_host: ""
+
+sickbeard_use_plex: 0
+sickbeard_plex_notify_onsnatch: 0
+sickbeard_plex_notify_ondownload: 0
+sickbeard_plex_update_library: 0
+sickbeard_plex_server_host: ""
+
+sickbeard_general_config_options:
+  web_port: "{{ sickbeard_port }}"
+  web_host: "{{ sickbeard_host }}"
+  web_root: "{{ sickbeard_web_root }}"
+  enable_https: "{{ sickbeard_enable_https }}"
+  https_cert: "{{ sickbeard_https_cert }}"
+  https_key: "{{ sickbeard_https_key }}"
+  display_all_seasons: "{{ sickbeard_display_all_seasons }}"
+  use_api: "{{ sickbeard_use_api }}"
+  api_key: "{{ sickbeard_api_key }}"
+  use_nzbs: "{{ sickbeard_use_nzbs }}"
+  use_torrents: "{{ sickbeard_use_torrents }}"
+  nzb_method: "{{ sickbeard_nzb_method }}"
+  usenet_retention: "{{ sickbeard_usenet_retention }}"
+  search_frequency: "{{ sickbeard_search_frequency }}"
+  quality_default: "{{ sickbeard_quality_default }}"
+  status_default: "{{ sickbeard_status_default }}"
+  naming_pattern: "{{ sickbeard_naming_pattern }}"
+  naming_custom_abd: "{{ sickbeard_naming_custom_abd }}"
+  naming_abd_pattern: "{{ sickbeard_naming_abd_pattern }}"
+  naming_multi_ep: "{{ sickbeard_naming_multi_ep }}"
+  launch_browser: "{{ sickbeard_launch_browser }}"
+  root_dirs: "{{ '0|{}'.format(sickbeard_root_dir) if sickbeard_root_dir else '' }}"
+  tv_download_dir: "{{ sickbeard_tv_download_dir }}"
+  keep_processed_dir: "{{ sickbeard_keep_processed_dir }}"
+  move_associated_files: "{{ sickbeard_move_associated_files }}"
+  filter_associated_files: "{{ sickbeard_filter_associated_files }}"
+  process_automatically: "{{ sickbeard_process_automatically }}"
+  rename_episodes: "{{ sickbeard_rename_episodes }}"
+
+sickbeard_blackhole_config_options:
+  nzb_dir: "{{ sickbeard_nzb_dir }}"
+  torrent_dir: "{{ sickbeard_torrent_dir }}"
+
+sickbeard_sabnzbd_config_options:
+  sab_username: "{{ sickbeard_sab_username }}"
+  sab_password: "{{ sickbeard_sab_password }}"
+  sab_apikey: "{{ sickbeard_sab_apikey }}"
+  sab_category: "{{ sickbeard_sab_category }}"
+  sab_host: "{{ sickbeard_sab_host }}"
+
+sickbeard_plex_config_options:
+  use_plex: "{{ sickbeard_use_plex }}"
+  plex_notify_onsnatch: "{{ sickbeard_plex_notify_onsnatch }}"
+  plex_notify_ondownload: "{{ sickbeard_plex_notify_ondownload }}"
+  plex_update_library: "{{ sickbeard_plex_update_library }}"
+  plex_server_host: "{{ sickbeard_plex_server_host }}"

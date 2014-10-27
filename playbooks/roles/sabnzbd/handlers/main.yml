@@ -1,0 +1,3 @@
+---
+- name: restart sabnzbdplus
+  service: name=sabnzbdplus state=restarted

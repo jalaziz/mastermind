@@ -1,0 +1,27 @@
+---
+- name: install sabnzbd PPA
+  apt_repository: repo='ppa:jcfp/ppa' update_cache=no
+- name: install sabnzbdplus
+  apt: name=sabnzbdplus update_cache=yes state=latest
+- name: create {{ sabnzbd_user }} user
+  user: name={{ sabnzbd_user }} home={{ sabnzbd_data_dir }} createhome=no system=yes shell=/bin/bash
+- name: create directories
+  file: path={{ item.path }} owner={{ sabnzbd_user }} group={{ sabnzbd_user }} mode={{ item.mode|default("755") }} state=directory
+  with_items:
+    - path: "{{ sabnzbd_data_dir }}"
+    - path: "{{ sabnzbd_config_dir }}"
+    - path: "{{ sabnzbd_download_dir }}"
+      mode: 775
+    - path: "{{ sabnzbd_complete_dir }}"
+      mode: 775
+- name: default config file
+  template: src=sabnzbdplus.default.j2 dest=/etc/default/sabnzbdplus
+  notify: restart sabnzbdplus
+- name: test config file existence
+  file: path={{ sabnzbd_config_dir }}/sabnzbd.ini state=file owner=sabnzbd group=sabnzbd
+  register: config_file_result
+  ignore_errors: yes
+- name: create config file
+  template: src=sabnzbd.ini.j2 dest={{ sabnzbd_config_dir }}/sabnzbd.ini owner=sabnzbd group=sabnzbd
+  when: config_file_result|failed
+  notify: restart sabnzbdplus

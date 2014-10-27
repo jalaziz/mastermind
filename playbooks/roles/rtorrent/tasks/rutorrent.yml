@@ -1,0 +1,28 @@
+---
+- name: install dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - unzip
+    - unrar
+    - mediainfo
+    - curl
+    - php5-fpm
+    - php5-cli
+    - php5-geoip
+    - php5-curl
+- name: download rutorrent
+  get_url: url={{ rtorrent_rutorrent_url }} dest=/tmp/{{ rtorrent_rutorrent_archive }} force=yes
+- name: download rutorrent plugins
+  get_url: url={{ rtorrent_rutorrent_plugins_url }} dest=/tmp/{{ rtorrent_rutorrent_plugins_archive }} force=yes
+- name: create install directory
+  file: path={{ rtorrent_rutorrent_install_path|dirname }} state=directory owner=www-data group=www-data
+- name: unpack rutorrent archive
+  unarchive: >
+    src=/tmp/{{ rtorrent_rutorrent_archive }} dest={{ rtorrent_rutorrent_install_path|dirname }} copy=no
+    creates={{ rtorrent_rutorrent_install_path }}/conf/config.php
+  notify: restart php5-fpm
+- name: unpack rutorrent plugins archive
+  unarchive: >
+    src=/tmp/{{ rtorrent_rutorrent_plugins_archive }} dest={{ rtorrent_rutorrent_install_path }} copy=no
+    creates={{ rtorrent_rutorrent_install_path }}/
+  notify: restart php5-fpm

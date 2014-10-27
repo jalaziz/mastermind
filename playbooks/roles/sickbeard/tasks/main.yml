@@ -1,0 +1,46 @@
+---
+- name: install dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - python-cheetah
+    - git-core
+- name: create {{ sickbeard_user }} user
+  user: name={{ sickbeard_user }} home={{ sickbeard_data_dir }} createhome=no system=yes shell=/bin/bash
+- name: create directories
+  file: path={{ item.path }} owner={{ sickbeard_user }} group={{ sickbeard_user }} mode={{ item.mode|default("755") }} state=directory
+  with_items:
+    - path: "{{ sickbeard_install_dir }}"
+    - path: "{{ sickbeard_data_dir }}"
+    - path: "{{ sickbeard_config_dir }}"
+    - path: "{{ sickbeard_pid_dir }}"
+    - path: "{{ sickbeard_root_dir }}"
+- name: clone sickbeard repo
+  git: repo={{ sickbeard_repo }} dest={{ sickbeard_install_dir }} version={{ sickbeard_version }}
+  notify: restart sickbeard
+- name: symlink sickbeard init
+  file: src={{ sickbeard_install_dir }}/init.ubuntu dest=/etc/init.d/sickbeard state=link mode=755
+- name: enable sickbeard service
+  service: name=sickbeard enabled=yes
+- name: default config file
+  template: src=sickbeard.default.j2 dest=/etc/default/sickbeard
+  notify: restart sickbeard
+- name: configure autoprocesstv script
+  template: src=autoProcessTV.cfg.j2 dest={{ sickbeard_autoprocesstv_script_dir }}/autoProcessTV.cfg
+- name: set autoprocesstv directory permissions
+  file: path={{ sickbeard_autoprocesstv_script_dir }} mode=777 state=directory
+- name: set general config options
+  ini_file: dest={{ sickbeard_config_file }} section=General option={{ item.key }} value="{{ item.value }}" owner={{ sickbeard_user }} group={{ sickbeard_user }}
+  with_dict: sickbeard_general_config_options
+  notify: restart sickbeard
+- name: set blackhole config options
+  ini_file: dest={{ sickbeard_config_file }} section=Blackhole option={{ item.key }} value="{{ item.value }}" owner={{ sickbeard_user }} group={{ sickbeard_user }}
+  with_dict: sickbeard_blackhole_config_options
+  notify: restart sickbeard
+- name: set sabnzbd config options
+  ini_file: dest={{ sickbeard_config_file }} section=SABnzbd option={{ item.key }} value="{{ item.value }}" owner={{ sickbeard_user }} group={{ sickbeard_user }}
+  with_dict: sickbeard_sabnzbd_config_options
+  notify: restart sickbeard
+- name: set plex config options
+  ini_file: dest={{ sickbeard_config_file }} section=Plex option={{ item.key }} value="{{ item.value }}" owner={{ sickbeard_user }} group={{ sickbeard_user }}
+  with_dict: sickbeard_plex_config_options
+  notify: restart sickbeard

@@ -1,0 +1,32 @@
+---
+- name: install rtorrent
+  apt: name=rtorrent update_cache=yes state=latest
+- name: create {{ rtorrent_user }} user
+  user: name={{ rtorrent_user }} home={{ rtorrent_data_dir }} system=yes shell=/bin/bash
+- name: create rtorrent directories
+  file: path={{ item.path }} owner={{ rtorrent_user }} group={{ rtorrent_user }} mode={{ item.mode|default("755") }} state=directory
+  with_items:
+    - path: "{{ rtorrent_session_dir }}"
+    - path: "{{ rtorrent_download_dir }}"
+      mode: 775
+    - path: "{{ rtorrent_watch_dir }}"
+      mode: 775
+- name: copy rtorrent config
+  template: src=rtorrent.rc.j2 dest={{ rtorrent_data_dir }}/.rtorrent.rc owner={{ rtorrent_user }} group={{ rtorrent_user }}
+  notify: restart rtorrent
+- name: install screen
+  apt: name=screen state=present
+  when: rtorrent_service_enable
+- name: create rtorrent init
+  template: src=rtorrent.init.j2 dest=/etc/init.d/rtorrent mode=755
+  when: rtorrent_service_enable
+  notify: restart rtorrent
+- name: enable rtorrent service
+  service: name=rtorrent enabled=yes
+  when: rtorrent_service_enable
+- name: create rtorrent default config
+  template: src=rtorrent.default.j2 dest=/etc/default/rtorrent
+  when: rtorrent_service_enable
+  notify: restart rtorrent
+- include: rutorrent.yml
+  when: rtorrent_install_rutorrent

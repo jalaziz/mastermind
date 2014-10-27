@@ -1,0 +1,35 @@
+---
+- name: install dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - python-passlib
+- name: install nginx-extras
+  apt: name=nginx-extras update_cache=yes state=latest
+- name: delete default site symlink
+  file: path=/etc/nginx/sites-enabled/default state=absent
+- name: install ssl key
+  copy:
+    content: "{{ mastermind_ssl_key }}"
+    dest: "{{ mastermind_ssl_key_path }}"
+    mode: 600
+  notify: reload nginx
+- name: install ssl certificate
+  copy:
+    content: "{{ mastermind_ssl_cert }}"
+    dest: "{{ mastermind_ssl_cert_path }}"
+    mode: 644
+  notify: reload nginx
+- name: setup htpasswd
+  htpasswd: path=/etc/nginx/.htpasswd name={{ mastermind_user }} password={{ mastermind_password }}
+            owner=root group=www-data mode=0640
+- name: install mastermind site
+  template: src=mastermind.nginx.j2 dest=/etc/nginx/sites-available/mastermind
+  notify: reload nginx
+- name: create mastermind site symlink
+  file: src=/etc/nginx/sites-available/mastermind dest=/etc/nginx/sites-enabled/mastermind state=link
+  notify: reload nginx
+- name: add services to sabnzbd and rtorrent group
+  user: name={{ item }} groups=sabnzbd,rtorrent append=yes
+  with_items:
+    - "{{ sickbeard_user }}"
+    - "{{ couchpotato_user }}"

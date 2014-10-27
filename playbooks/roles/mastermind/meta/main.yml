@@ -1,0 +1,7 @@
+---
+dependencies:
+  - { role: sabnzbd }
+  - { role: rtorrent }
+  - { role: plexmediaserver }
+  - { role: sickbeard }
+  - { role: couchpotato }

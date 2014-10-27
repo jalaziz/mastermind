@@ -1,0 +1,16 @@
+---
+- name: install dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - avahi-daemon
+    - avahi-utils
+- name: download plex media server
+  get_url: url={{ plex_download_url }} dest=/tmp/{{ plex_deb_package }}
+- name: install plex media server
+  apt: deb=/tmp/{{ plex_deb_package }} state=installed
+  notify: restart plexmediaserver
+- name: install plex keyring
+  apt: name=plex-archive-keyring update_cache=yes state=latest
+- name: upgrade plex media server
+  apt: name=plexmediaserver update_cache=yes state=latest
+  notify: restart plexmediaserver

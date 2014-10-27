@@ -1,0 +1,23 @@
+---
+sabnzbd_data_dir: /var/lib/sabnzbd
+sabnzbd_config_dir: /etc/sabnzbd
+sabnzbd_host: localhost
+sabnzbd_port: 8080
+sabnzbd_extra_cmdline_opts: ''
+sabnzbd_download_dir: Downloads/incomplete
+sabnzbd_complete_dir: Downloads/complete
+sabnzbd_script_dir: ''
+sabnzbd_https_port: 9090
+sabnzbd_https_key: server.key
+sabnzbd_https_cert: server.cert
+sabnzbd_api_key: ''
+sabnzbd_nzb_key: ''
+sabnzbd_web_color: ''
+sabnzbd_permissions: ''
+sabnzbd_ignore_samples: 0
+sabnzbd_unpack_check: 1
+sabnzbd_enable_https: 0
+sabnzbd_no_dupes: 0
+sabnzbd_top_only: 0
+sabnzbd_nice: ''
+sabnzbd_extra_config_opts: {}

@@ -1,0 +1,59 @@
+#!/bin/bash
+# {{ ansible_managed }}
+
+### BEGIN INIT INFO
+# Provides:          rtorrent
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop rtorrent daemon
+### END INIT INFO
+
+# This script is an init script to run rtorrent in the background,
+# using a screen. The script was designed and tested for Debian
+# systems, but may work on other systems. On Debian, enable it by
+# moving the script to "/etc/init.d/rtorrent" and issuing the command
+# "update-rc.d rtorrent defaults 99"
+
+USER=rtorrent # username to run rtorrent under
+RTORRENT=/usr/bin/rtorrent # rtorrent binary
+SCREEN=/usr/bin/screen # screen binary
+SCREEN_NAME=rtorrent # screen name (this way you can screen -r rtorrent)
+PIDFILE=/var/run/rtorrent.pid # pidfile
+
+# Include rtorrent defaults if available
+if [ -r /etc/default/rtorrent ]; then
+    . /etc/default/rtorrent
+fi
+
+. /lib/lsb/init-functions
+
+case "$1" in
+
+    start)
+        log_daemon_msg "Starting rtorrent."
+        start-stop-daemon --start --background --oknodo \
+            --pidfile "$PIDFILE" --make-pidfile \
+            --chuid $USER \
+            --exec $SCREEN -- -D -m -S $SCREEN_NAME $RTORRENT
+        log_end_msg $?
+        ;;
+
+    stop)
+        log_daemon_msg "Stopping rtorrent."
+        start-stop-daemon --stop --oknodo --retry INT/15/INT/5/KILL/5 --pidfile "$PIDFILE"
+        log_end_msg $?
+        ;;
+
+    restart|force-reload)
+        "$0" stop
+        sleep 1
+        "$0" start
+        ;;
+
+    *)
+        echo "Usage: $0 [start|stop|restart]"
+        exit 1
+        ;;
+esac

@@ -1,0 +1,19 @@
+---
+rtorrent_data_dir: /var/lib/rtorrent
+rtorrent_download_dir: "{{ rtorrent_data_dir }}/download"
+rtorrent_session_dir: "{{ rtorrent_data_dir }}/session"
+rtorrent_watch_dir: "{{ rtorrent_data_dir }}/watch"
+rtorrent_port_range: 49164-49164
+rtorrent_scgi_host: 127.0.0.1
+rtorrent_scgi_port: 5000
+rtorrent_service_enable: yes
+rtorrent_pid_file: /var/run/rtorrent.pid
+rtorrent_screen_name: rtorrent
+rtorrent_install_rutorrent: yes
+rtorrent_install_rutorrent_plugins: yes
+rtorrent_rutorrent_version: 3.6
+rtorrent_rutorrent_archive: rutorrent-{{ rtorrent_rutorrent_version }}.tar.gz
+rtorrent_rutorrent_plugins_archive: plugins-{{ rtorrent_rutorrent_version }}.tar.gz
+rtorrent_rutorrent_url: http://dl.bintray.com/novik65/generic/{{ rtorrent_rutorrent_archive }}
+rtorrent_rutorrent_plugins_url: http://dl.bintray.com/novik65/generic/{{ rtorrent_rutorrent_plugins_archive }}
+rtorrent_rutorrent_install_path: /var/www/rutorrent

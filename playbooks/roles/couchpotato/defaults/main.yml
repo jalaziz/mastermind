@@ -1,0 +1,130 @@
+---
+couchpotato_repo: https://github.com/RuudBurger/CouchPotatoServer.git
+couchpotato_install_dir: /opt/couchpotato
+couchpotato_data_dir: /var/lib/couchpotato
+couchpotato_config_dir: /etc/couchpotato
+couchpotato_config_file: "{{ couchpotato_config_dir }}/settings.conf"
+couchpotato_pid_dir: /var/run/couchpotato
+
+couchpotato_host: localhost
+couchpotato_port: 5050
+couchpotato_url_base: ""
+couchpotato_ssl_key: ""
+couchpotato_ssl_cert: ""
+
+couchpotato_api_key: ""
+couchpotato_permission_folder: "0755"
+couchpotato_permission_file: "0644"
+couchpotato_launch_browser: 0
+
+couchpotato_manage_enabled: 0
+couchpotato_manage_startup_scan: 1
+couchpotato_manage_library_refresh_interval: 0
+couchpotato_manage_cleanup: 1
+couchpotato_manage_library: ""
+
+couchpotato_renamer_enabled: 0
+couchpotato_renamer_from: ""
+couchpotato_renamer_to: ""
+couchpotato_renamer_force_every: 2
+couchpotato_renamer_file_name: "<thename><cd>.<ext>"
+couchpotato_renamer_default_file_action: move
+couchpotato_renamer_unrar: 0
+couchpotato_renamer_cleanup: 0
+couchpotato_renamer_folder_name: "<namethe> (<year>)"
+couchpotato_renamer_run_every: 1
+couchpotato_renamer_file_action: link
+
+couchpotato_blackhole_dir: "{{ couchpotato_data_dir }}"
+couchpotato_blackhole_manual: 0
+couchpotato_blackhole_enabled: 0
+couchpotato_blackhole_use_for: both
+couchpotato_blackhole_create_subdir: 0
+
+couchpotato_sabnzbd_category: movies
+couchpotato_sabnzbd_delete_failed: 1
+couchpotato_sabnzbd_manual: 0
+couchpotato_sabnzbd_enabled: 0
+couchpotato_sabnzbd_priority: 0
+couchpotato_sabnzbd_ssl: 0
+couchpotato_sabnzbd_host: localhost:8080
+couchpotato_sabnzbd_remove_complete: 0
+couchpotato_sabnzbd_api_key: ""
+
+couchpotato_plex_enabled: 0
+couchpotato_plex_on_snatch: 0
+couchpotato_plex_clients: ""
+couchpotato_plex_media_server: localhost
+
+couchpotato_searcher_preferred_method: both
+couchpotato_searcher_preferred_words: ""
+
+couchpotato_nzb_retention: 1500
+
+couchpotato_torrent_minimum_seeders: 1
+
+couchpotato_core_config_options:
+  api_key: "{{ couchpotato_api_key }}"
+  ssl_key: "{{ couchpotato_ssl_key }}"
+  ssl_cert: "{{ couchpotato_ssl_cert }}"
+  data_dir: "{{ couchpotato_data_dir }}"
+  permission_folder: "{{ couchpotato_permission_folder }}"
+  url_base: "{{ couchpotato_url_base }}"
+  launch_browser: "{{ couchpotato_launch_browser }}"
+  host: "{{ couchpotato_host }}"
+  port: "{{ couchpotato_port }}"
+  permission_file: "{{ couchpotato_permission_file }}"
+
+couchpotato_manage_config_options:
+  startup_scan: "{{ couchpotato_manage_startup_scan }}"
+  library_refresh_interval: "{{ couchpotato_manage_library_refresh_interval }}"
+  cleanup: "{{ couchpotato_manage_cleanup }}"
+  enabled: "{{ couchpotato_manage_enabled }}"
+  library: "{{ couchpotato_manage_library }}"
+
+couchpotato_renamer_config_options:
+  from: "{{ couchpotato_renamer_from }}"
+  force_every: "{{ couchpotato_renamer_force_every }}"
+  to: "{{ couchpotato_renamer_to }}"
+  file_name: "{{ couchpotato_renamer_file_name }}"
+  enabled: "{{ couchpotato_renamer_enabled }}"
+  default_file_action: "{{ couchpotato_renamer_default_file_action }}"
+  unrar: "{{ couchpotato_renamer_unrar }}"
+  cleanup: "{{ couchpotato_renamer_cleanup }}"
+  folder_name: "{{ couchpotato_renamer_folder_name }}"
+  run_every: "{{ couchpotato_renamer_run_every }}"
+  file_action: "{{ couchpotato_renamer_file_action }}"
+
+couchpotato_blackhole_config_options:
+  directory: "{{ couchpotato_blackhole_dir }}"
+  manual: "{{ couchpotato_blackhole_manual }}"
+  enabled: "{{ couchpotato_blackhole_enabled }}"
+  create_subdir: "{{ couchpotato_blackhole_create_subdir }}"
+  use_for: "{{ couchpotato_blackhole_use_for }}"
+
+couchpotato_sabnzbd_config_options:
+  category: "{{ couchpotato_sabnzbd_category }}"
+  delete_failed: "{{ couchpotato_sabnzbd_delete_failed }}"
+  manual: "{{ couchpotato_sabnzbd_manual }}"
+  enabled: "{{ couchpotato_sabnzbd_enabled }}"
+  priority: "{{ couchpotato_sabnzbd_priority }}"
+  ssl: "{{ couchpotato_sabnzbd_ssl }}"
+  host: "{{ couchpotato_sabnzbd_host }}"
+  remove_complete: "{{ couchpotato_sabnzbd_remove_complete }}"
+  api_key: "{{ couchpotato_sabnzbd_api_key }}"
+
+couchpotato_plex_config_options:
+  on_snatch: "{{ couchpotato_plex_on_snatch }}"
+  clients: "{{ couchpotato_plex_clients }}"
+  enabled: "{{ couchpotato_plex_enabled }}"
+  media_server: "{{ couchpotato_plex_media_server }}"
+
+couchpotato_searcher_config_options:
+  preferred_method: "{{ couchpotato_searcher_preferred_method }}"
+  preferred_words: "{{ couchpotato_searcher_preferred_words }}"
+
+couchpotato_nzb_config_options:
+  retention: "{{ couchpotato_nzb_retention }}"
+
+couchpotato_torrent_config_options:
+  minimum_seeders: "{{ couchpotato_torrent_minimum_seeders }}"

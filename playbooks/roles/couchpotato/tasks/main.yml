@@ -1,0 +1,62 @@
+---
+- name: install dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - git-core
+- name: create {{ couchpotato_user }} user
+  user: name={{ couchpotato_user }} home={{ couchpotato_data_dir }} createhome=no system=yes shell=/bin/bash
+- name: create directories
+  file: path={{ item.path }} owner={{ couchpotato_user }} group={{ couchpotato_user }} mode={{ item.mode|default("755") }} state=directory
+  with_items:
+    - path: "{{ couchpotato_install_dir }}"
+    - path: "{{ couchpotato_data_dir }}"
+    - path: "{{ couchpotato_config_dir }}"
+    - path: "{{ couchpotato_pid_dir }}"
+    - path: "{{ couchpotato_manage_library }}"
+    - path: "{{ couchpotato_renamer_to }}"
+- name: clone couchpotato repo
+  git: repo={{ couchpotato_repo }} dest={{ couchpotato_install_dir }}
+  notify: restart couchpotato
+- name: symlink couchpotato init
+  file: src={{ couchpotato_install_dir }}/init/ubuntu dest=/etc/init.d/couchpotato state=link mode=755
+- name: enable couchpotato service
+  service: name=couchpotato enabled=yes
+- name: default config file
+  template: src=couchpotato.default.j2 dest=/etc/default/couchpotato
+  notify: restart couchpotato
+- name: set core config options
+  ini_file: dest={{ couchpotato_config_file }} section=core option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_core_config_options
+  notify: restart couchpotato
+- name: set manage config options
+  ini_file: dest={{ couchpotato_config_file }} section=manage option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_manage_config_options
+  notify: restart couchpotato
+- name: set renamer config options
+  ini_file: dest={{ couchpotato_config_file }} section=renamer option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_renamer_config_options
+  notify: restart couchpotato
+- name: set blackhole config options
+  ini_file: dest={{ couchpotato_config_file }} section=blackhole option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_blackhole_config_options
+  notify: restart couchpotato
+- name: set sabnzbd config options
+  ini_file: dest={{ couchpotato_config_file }} section=sabnzbd option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_sabnzbd_config_options
+  notify: restart couchpotato
+- name: set plex config options
+  ini_file: dest={{ couchpotato_config_file }} section=plex option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_plex_config_options
+  notify: restart couchpotato
+- name: set searcher config options
+  ini_file: dest={{ couchpotato_config_file }} section=searcher option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_searcher_config_options
+  notify: restart couchpotato
+- name: set nzb config options
+  ini_file: dest={{ couchpotato_config_file }} section=nzb option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_nzb_config_options
+  notify: restart couchpotato
+- name: set torrent config options
+  ini_file: dest={{ couchpotato_config_file }} section=torrent option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_torrent_config_options
+  notify: restart couchpotato

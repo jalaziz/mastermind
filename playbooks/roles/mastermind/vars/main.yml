@@ -1,0 +1,24 @@
+sabnzbd_script_dir: "{{ sickbeard_autoprocesstv_script_dir }}"
+sabnzbd_web_color: gold
+sabnzbd_permissions: 775
+rtorrent_install_rutorrent: yes
+rtorrent_install_rutorrent_plugins: yes
+rtorrent_service_enable: yes
+sickbeard_web_root: /sickbeard
+sickbeard_nzb_method: sabnzbd
+sickbeard_sab_apikey: "{{ sabnzbd_api_key }}"
+sickbeard_sab_host: http://{{ sabnzbd_host }}:{{ sabnzbd_port }}/
+sickbeard_torrent_dir: "{{ rtorrent_watch_dir }}"
+sickbeard_use_plex: 1
+sickbeard_plex_update_library: 1
+sickbeard_plex_server_host: localhost:32400
+couchpotato_url_base: /couchpotato
+couchpotato_sabnzbd_enabled: 1
+couchpotato_sabnzbd_host: "{{ sabnzbd_host }}:{{ sabnzbd_port }}"
+couchpotato_sabnzbd_api_key: "{{ sabnzbd_api_key }}"
+couchpotato_plex_enabled: 1
+couchpotato_plex_media_server: localhost
+couchpotato_renamer_file_name: "<original>.<ext>"
+couchpotato_renamer_folder_name: "<thename> (<year>)"
+couchpotato_renamer_unrar: 1
+couchpotato_renamer_cleanup: 1
