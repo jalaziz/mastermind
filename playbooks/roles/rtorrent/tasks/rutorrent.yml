@@ -24,5 +24,13 @@
 - name: unpack rutorrent plugins archive
   unarchive: >
     src=/tmp/{{ rtorrent_rutorrent_plugins_archive }} dest={{ rtorrent_rutorrent_install_path }} copy=no
-    creates={{ rtorrent_rutorrent_install_path }}/
-  notify: restart php5-fpm
+    creates={{ rtorrent_rutorrent_install_path }}/plugins/_getdir
+  notify:
+    - restart rtorrent
+    - restart php5-fpm
+- name: adjust rutorrent autotools plugin inteval
+  lineinfile: >
+    dest={{ rtorrent_rutorrent_install_path }}/plugins/autotools/conf.php
+    regexp="^(\s*)\$autowatch_interval" line="\1$autowatch_interval = {{ rtorrent_rutorrent_autotools_interval }};"
+    backrefs=yes state=present
+  notify: restart rtorrent

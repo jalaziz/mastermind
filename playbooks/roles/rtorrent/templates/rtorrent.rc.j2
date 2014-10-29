@@ -29,8 +29,8 @@ session = {{ rtorrent_session_dir }}
 
 # Watch a directory for new torrents, and stop those that have been
 # deleted.
-schedule = watch_directory,5,5,load_start={{ rtorrent_watch_dir }}/*.torrent
-schedule = untied_directory,5,5,stop_untied=
+#schedule = watch_directory,5,5,load_start={{ rtorrent_watch_dir }}/*.torrent
+#schedule = untied_directory,5,5,stop_untied=
 
 # Close torrents when diskspace is low.
 #schedule = low_diskspace,5,60,close_low_diskspace=100M
@@ -87,3 +87,9 @@ encryption = allow_incoming,try_outgoing,enable_retry
 # peer_exchange = yes
 
 scgi_port = {{ rtorrent_scgi_host }}:{{ rtorrent_scgi_port }}
+
+system.umask.set = {{ rtorrent_umask }}
+
+{% if rtorrent_install_rutorrent %}
+execute = {sh,-c,/usr/bin/php {{ rtorrent_rutorrent_install_path }}/php/initplugins.php &}
+{% endif %}

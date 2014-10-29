@@ -1,0 +1,5 @@
+---
+- name: restart newrelic sysmon
+  service: name={{ newrelic_service_name }} state=stopped
+- name: restart newrelic nginx plugin
+  service: name={{ newrelic_nginx_plugin_service_name }} states=stopped

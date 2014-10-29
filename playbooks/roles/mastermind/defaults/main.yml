@@ -2,3 +2,6 @@
 mastermind_domain: mastermind
 mastermind_ssl_cert_path: /etc/ssl/certs/{{ mastermind_domain }}.pem
 mastermind_ssl_key_path: /etc/ssl/private/{{ mastermind_domain }}.key
+mastermind_install_newrelic: yes
+mastermind_download_dir: /srv/mastermind/downloads
+mastermind_media_dir: /srv/mastermind/media

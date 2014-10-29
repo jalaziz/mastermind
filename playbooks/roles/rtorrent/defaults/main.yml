@@ -6,6 +6,7 @@ rtorrent_watch_dir: "{{ rtorrent_data_dir }}/watch"
 rtorrent_port_range: 49164-49164
 rtorrent_scgi_host: 127.0.0.1
 rtorrent_scgi_port: 5000
+rtorrent_umask: "022"
 rtorrent_service_enable: yes
 rtorrent_pid_file: /var/run/rtorrent.pid
 rtorrent_screen_name: rtorrent
@@ -17,3 +18,4 @@ rtorrent_rutorrent_plugins_archive: plugins-{{ rtorrent_rutorrent_version }}.tar
 rtorrent_rutorrent_url: http://dl.bintray.com/novik65/generic/{{ rtorrent_rutorrent_archive }}
 rtorrent_rutorrent_plugins_url: http://dl.bintray.com/novik65/generic/{{ rtorrent_rutorrent_plugins_archive }}
 rtorrent_rutorrent_install_path: /var/www/rutorrent
+rtorrent_rutorrent_autotools_interval: 300

@@ -3,6 +3,7 @@
   apt: name={{ item }} state=present
   with_items:
     - git-core
+    - python-lxml
 - name: create {{ couchpotato_user }} user
   user: name={{ couchpotato_user }} home={{ couchpotato_data_dir }} createhome=no system=yes shell=/bin/bash
 - name: create directories
@@ -17,6 +18,8 @@
 - name: clone couchpotato repo
   git: repo={{ couchpotato_repo }} dest={{ couchpotato_install_dir }}
   notify: restart couchpotato
+- name: fix repo permissions
+  file: path={{ couchpotato_install_dir }} owner={{ couchpotato_user }} group={{ couchpotato_user }} recurse=yes
 - name: symlink couchpotato init
   file: src={{ couchpotato_install_dir }}/init/ubuntu dest=/etc/init.d/couchpotato state=link mode=755
 - name: enable couchpotato service
@@ -43,6 +46,10 @@
 - name: set sabnzbd config options
   ini_file: dest={{ couchpotato_config_file }} section=sabnzbd option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
   with_dict: couchpotato_sabnzbd_config_options
+  notify: restart couchpotato
+- name: set rtorrent config options
+  ini_file: dest={{ couchpotato_config_file }} section=rtorrent option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}
+  with_dict: couchpotato_rtorrent_config_options
   notify: restart couchpotato
 - name: set plex config options
   ini_file: dest={{ couchpotato_config_file }} section=plex option={{ item.key }} value="{{ item.value }}" owner={{ couchpotato_user }} group={{ couchpotato_user }}

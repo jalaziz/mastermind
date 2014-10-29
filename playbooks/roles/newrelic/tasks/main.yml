@@ -1,0 +1,15 @@
+---
+- name: install newrelic apt key
+  apt_key: url={{ newrelic_apt_key_url }} state=present
+- name: install newrelic apt repo
+  apt_repository: repo="{{ newrelic_apt_repo }}" state=present
+- name:  install newrelic sysmon
+  apt: name={{ newrelic_package_name }} update_cache=yes state=latest
+  notify: restart newrelic sysmon
+- name: set license key
+  lineinfile: >
+    dest={{ newrelic_config_file }}
+    regexp="^license_key=" line="license_key={{ newrelic_license_key }}" state=present
+  notify: restart newrelic sysmon
+- include: nginx.yml
+  when: newrelic_install_nginx_plugin

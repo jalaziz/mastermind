@@ -3,6 +3,15 @@
   apt: name={{ item }} state=present
   with_items:
     - python-passlib
+- name: create {{ mastermind_group }} group
+  group: name={{ mastermind_group }} system=yes state=present
+- name: create directories
+  file: path={{ item.path }} group={{ mastermind_group }} mode={{ item.mode|default("775") }} state=directory
+  with_items:
+    - path: "{{ mastermind_download_dir }}"
+    - path: "{{ mastermind_media_dir }}"
+    - path: "{{ sickbeard_tv_download_dir }}"
+    - path: "{{ couchpotato_renamer_from }}"
 - name: install nginx-extras
   apt: name=nginx-extras update_cache=yes state=latest
 - name: delete default site symlink
@@ -28,8 +37,23 @@
 - name: create mastermind site symlink
   file: src=/etc/nginx/sites-available/mastermind dest=/etc/nginx/sites-enabled/mastermind state=link
   notify: reload nginx
-- name: add services to sabnzbd and rtorrent group
-  user: name={{ item }} groups=sabnzbd,rtorrent append=yes
+- name: add services to mastermind group
+  user: name={{ item }} groups={{ mastermind_group }} append=yes
   with_items:
     - "{{ sickbeard_user }}"
     - "{{ couchpotato_user }}"
+    - "{{ sabnzbd_user }}"
+    - "{{ rtorrent_user }}"
+  notify:
+    - restart sickbeard
+    - restart couchpotato
+    - restart sabnzbdplus
+    - restart rtorrent
+- name: add services to sabnzbd and rtorrent group
+  user: name={{ item }} groups={{ sabnzbd_user }},{{ rtorrent_user }} append=yes
+  with_items:
+    - "{{ sickbeard_user }}"
+    - "{{ couchpotato_user }}"
+  notify:
+    - restart sickbeard
+    - restart couchpotato

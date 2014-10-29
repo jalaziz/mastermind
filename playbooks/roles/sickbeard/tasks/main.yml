@@ -17,6 +17,8 @@
 - name: clone sickbeard repo
   git: repo={{ sickbeard_repo }} dest={{ sickbeard_install_dir }} version={{ sickbeard_version }}
   notify: restart sickbeard
+- name: fix repo permissions
+  file: path={{ sickbeard_install_dir }} owner={{ sickbeard_user }} group={{ sickbeard_user }} recurse=yes
 - name: symlink sickbeard init
   file: src={{ sickbeard_install_dir }}/init.ubuntu dest=/etc/init.d/sickbeard state=link mode=755
 - name: enable sickbeard service

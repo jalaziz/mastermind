@@ -5,3 +5,5 @@ dependencies:
   - { role: plexmediaserver }
   - { role: sickbeard }
   - { role: couchpotato }
+  - { role: newrelic, when: mastermind_install_newrelic }
+

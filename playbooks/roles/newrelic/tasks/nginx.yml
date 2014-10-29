@@ -1,0 +1,15 @@
+---
+- name: install newrelic nginx plugin apt key
+  apt_key: url={{ newrelic_nginx_plugin_apt_key_url }} state=present
+- name: install nginx apt repo
+  apt_repository: repo="{{ newrelic_nginx_plugin_apt_repo }}" state=present
+- name:  install newrelic nginx plugin
+  apt: name={{ newrelic_nginx_plugin_package_name }} update_cache=yes state=latest
+  notify: restart newrelic nginx plugin
+- name: set license key
+  ini_file: dest={{ newrelic_nginx_plugin_config_file }} section=global option=newrelic_license_key value="{{ newrelic_license_key }}"
+- name: set nginx status url
+  ini_file: dest={{ newrelic_nginx_plugin_config_file }} section=source option={{ item.key }} value="{{ item.value }}"
+  with_dict:
+    name: "{{ newrelic_nginx_plugin_status_name }}"
+    url: "{{ newrelic_nginx_plugin_status_url }}"

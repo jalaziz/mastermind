@@ -51,6 +51,19 @@ couchpotato_sabnzbd_host: localhost:8080
 couchpotato_sabnzbd_remove_complete: 0
 couchpotato_sabnzbd_api_key: ""
 
+couchpotato_rtorrent_username: ""
+couchpotato_rtorrent_password: ""
+couchpotato_rtorrent_manual: 0
+couchpotato_rtorrent_enabled: 0
+couchpotato_rtorrent_label: movies
+couchpotato_rtorrent_paused: 0
+couchpotato_rtorrent_delete_files: 1
+couchpotato_rtorrent_remove_complete: 0
+couchpotato_rtorrent_directory: ""
+couchpotato_rtorrent_rpc_url: RPC2
+couchpotato_rtorrent_ssl: 0
+couchpotato_rtorrent_host: localhost:80
+
 couchpotato_plex_enabled: 0
 couchpotato_plex_on_snatch: 0
 couchpotato_plex_clients: ""
@@ -112,6 +125,20 @@ couchpotato_sabnzbd_config_options:
   host: "{{ couchpotato_sabnzbd_host }}"
   remove_complete: "{{ couchpotato_sabnzbd_remove_complete }}"
   api_key: "{{ couchpotato_sabnzbd_api_key }}"
+
+couchpotato_rtorrent_config_options:
+  username: "{{ couchpotato_rtorrent_username }}"
+  password: "{{ couchpotato_rtorrent_password }}"
+  manual: "{{ couchpotato_rtorrent_manual }}"
+  enabled: "{{ couchpotato_rtorrent_enabled }}"
+  label: "{{ couchpotato_rtorrent_label }}"
+  paused: "{{ couchpotato_rtorrent_paused }}"
+  delete_files: "{{ couchpotato_rtorrent_delete_files }}"
+  remove_complete: "{{ couchpotato_rtorrent_remove_complete }}"
+  directory: "{{ couchpotato_rtorrent_directory }}"
+  rpc_url: "{{ couchpotato_rtorrent_rpc_url }}"
+  ssl: "{{ couchpotato_rtorrent_ssl }}"
+  host: "{{ couchpotato_rtorrent_host }}"
 
 couchpotato_plex_config_options:
   on_snatch: "{{ couchpotato_plex_on_snatch }}"

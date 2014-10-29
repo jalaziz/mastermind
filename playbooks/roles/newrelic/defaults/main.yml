@@ -1,0 +1,15 @@
+---
+newrelic_license_key: ""
+newrelic_apt_repo: deb http://apt.newrelic.com/debian/ newrelic non-free
+newrelic_apt_key_url: https://download.newrelic.com/548C16BF.gpg
+newrelic_package_name: newrelic-sysmond
+newrelic_service_name: newrelic-sysmond
+newrelic_config_file: /etc/newrelic/nrsysmond.cfg
+newrelic_install_nginx_plugin: no
+newrelic_nginx_plugin_apt_repo: deb http://nginx.org/packages/ubuntu/ {{ ansible_distribution_release }} nginx
+newrelic_nginx_plugin_apt_key_url: http://nginx.org/keys/nginx_signing.key
+newrelic_nginx_plugin_package_name: nginx-nr-agent
+newrelic_nginx_plugin_service_name: nginx-nr-agent
+newrelic_nginx_plugin_config_file: /etc/nginx-nr-agent/nginx-nr-agent.ini
+newrelic_nginx_plugin_status_name: examplecom
+newrelic_nginx_plugin_status_url: http://localhost/nginx_stub_status
