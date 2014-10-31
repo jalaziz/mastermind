@@ -9,7 +9,9 @@
   file: path={{ item.path }} group={{ mastermind_group }} mode={{ item.mode|default("775") }} state=directory
   with_items:
     - path: "{{ mastermind_download_dir }}"
+      mode: "755"
     - path: "{{ mastermind_media_dir }}"
+      mode: "755"
     - path: "{{ sickbeard_tv_download_dir }}"
     - path: "{{ couchpotato_renamer_from }}"
 - name: install nginx-extras
