@@ -1,0 +1,17 @@
+<Config>
+  <Port>{{ sonarr_port }}</Port>
+  <UrlBase>{{ sonarr_url_base }}</UrlBase>
+  <BindAddress>{{ '*' if sonarr_host == 'localhost' else sonarr_host }}</BindAddress>
+  <SslPort>9898</SslPort>
+  <EnableSsl>False</EnableSsl>
+{% if sonarr_api_key %}
+  <ApiKey>{{ sonarr_api_key }}</ApiKey>
+{% endif %}
+  <AuthenticationMethod>None</AuthenticationMethod>
+  <LogLevel>Info</LogLevel>
+  <LaunchBrowser>False</LaunchBrowser>
+  <Branch>master</Branch>
+  <SslCertHash>
+  </SslCertHash>
+  <UpdateMechanism>BuiltIn</UpdateMechanism>
+</Config>

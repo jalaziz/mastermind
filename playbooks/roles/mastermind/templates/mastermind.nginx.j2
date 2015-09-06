@@ -5,6 +5,7 @@ map $uri $auth_msg {
     /sabnzbd/api     "off";
     /sickbeard/api   "off";
     /couchpotato/api "off";
+    /sonarr/api      "off";
 }
 
 server {
@@ -92,6 +93,12 @@ server {
 
     location /couchpotato {
         proxy_pass http://{{ couchpotato_host }}:{{ couchpotato_port }}/{{ couchpotato_url_base.lstrip('/') }};
+    }
+
+    location /sonarr {
+        proxy_redirect http:// https://;
+
+        proxy_pass http://{{ sonarr_host }}:{{ sonarr_port }}/{{ sonarr_url_base.lstrip('/') }};
     }
 
     location ~ \.php$ {

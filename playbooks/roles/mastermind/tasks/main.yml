@@ -45,17 +45,21 @@
     - "{{ sickbeard_user }}"
     - "{{ couchpotato_user }}"
     - "{{ sabnzbd_user }}"
+    - "{{ sonarr_user }}"
     - "{{ rtorrent_user }}"
   notify:
     - restart sickbeard
     - restart couchpotato
     - restart sabnzbdplus
+    - restart sonarr
     - restart rtorrent
 - name: add services to sabnzbd and rtorrent group
   user: name={{ item }} groups={{ sabnzbd_user }},{{ rtorrent_user }} append=yes
   with_items:
     - "{{ sickbeard_user }}"
+    - "{{ sonarr_user }}"
     - "{{ couchpotato_user }}"
   notify:
     - restart sickbeard
     - restart couchpotato
+    - restart sonarr

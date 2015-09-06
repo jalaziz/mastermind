@@ -1,0 +1,24 @@
+---
+- name: install sonarr apt key
+  apt_key: keyserver=keyserver.ubuntu.com id={{ sonarr_apt_key_id }} state=present
+- name: install sonarr repp
+  apt_repository: repo="{{ sonarr_apt_repo }}" update_cache=no state=present
+- name: install sonarr
+  apt: name=nzbdrone update_cache=yes state=latest
+- name: create sonarr user
+  user: name={{ sonarr_user }} home={{ sonarr_data_dir }} createhome=no system=yes shell=/bin/bash
+- name: create directories
+  file: path={{ item.path }} owner={{ sonarr_user }} group={{ sonarr_user }} mode={{ item.mode|default("755") }} state=directory
+  with_items:
+    - path: "{{ sonarr_data_dir }}"
+- name: test config file existence
+  file: path={{ sonarr_config_dir }}/config.xml state=file owner={{ sonarr_user }} group={{ sonarr_user }}
+  register: config_file_result
+  ignore_errors: yes
+- name: create config file
+  template: src=sonarr.config.j2 dest={{ sonarr_config_dir }}/config.xml owner={{ sonarr_user }} group={{ sonarr_user }}
+  when: config_file_result|failed
+  notify: restart sonarr
+- name: install sonarr upstart
+  template: src=sonarr.upstart.j2 dest=/etc/init/sonarr.conf
+  notify: restart sonarr

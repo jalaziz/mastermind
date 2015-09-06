@@ -46,3 +46,4 @@ couchpotato_renamer_force_every: 1
 newrelic_install_nginx_plugin: yes
 newrelic_nginx_plugin_status_name: mastermind
 newrelic_nginx_plugin_status_url: http://localhost/nginx_stub_status
+sonarr_url_base: /sonarr

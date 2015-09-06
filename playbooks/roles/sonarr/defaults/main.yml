@@ -1,0 +1,11 @@
+---
+sonarr_apt_repo: deb http://apt.sonarr.tv/ master main
+sonarr_apt_key_id: D9B78493
+sonarr_user: sonarr
+sonarr_install_dir: /opt/NzbDrone
+sonarr_config_dir: "{{ sonarr_data_dir }}/.config/NzbDrone/"
+sonarr_data_dir: /var/lib/sonarr
+sonarr_host: localhost
+sonarr_port: 8989
+sonarr_url_base: ""
+sonarr_api_key: ""
