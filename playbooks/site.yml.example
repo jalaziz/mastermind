@@ -1,0 +1,35 @@
+---
+- hosts: all
+  remote_user: root
+  vars:
+    rtorrent_port_range: 49164-49999
+    nzb_retention: 3000
+    mastermind_download_dir: /srv/downloads
+    mastermind_media_dir: /srv/media
+    mastermind_domain: change.me
+    sabnzbd_ignore_samples: 1
+    sabnzbd_unpack_check: 0
+    sabnzbd_no_dupes: 1
+    sabnzbd_top_only: 1
+    sabnzbd_nice: -n10
+    sickbeard_usenet_retention: "{{ nzb_retention }}"
+    sickbeard_search_frequency: 15
+    sickbeard_quality_default: 164
+    sickbeard_status_default: 5
+    sickbeard_naming_pattern: "Season %0S/%SN - %0Sx%0E - %EN - %QN"
+    sickbeard_naming_custom_abd: 1
+    sickbeard_naming_abd_pattern: "%SN - %A-D - %EN - %QN"
+    couchpotato_searcher_preferred_method: torrent
+    couchpotato_searcher_preferred_words: "DTS, Unrated, Extended"
+    couchpotato_nzb_retention: "{{ nzb_retention }}"
+  vars_files:
+    - vars/secret.yml
+  pre_tasks:
+    - name: install xfsprogs
+      apt: name=xfsprogs state=present
+    - name: format /dev/vg0/srv
+      filesystem: dev=/dev/vg0/srv fstype=xfs
+    - name: mount /dev/vg0/srv
+      mount: name=/srv src=/dev/vg0/srv fstype=xfs state=mounted
+  roles:
+    - { role: mastermind }
