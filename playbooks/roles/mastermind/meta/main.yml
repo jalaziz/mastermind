@@ -1,10 +1,9 @@
 ---
 dependencies:
-  - { role: sabnzbd }
-  - { role: rtorrent }
-  - { role: plexmediaserver }
-  - { role: sickbeard }
-  - { role: couchpotato }
-  - { role: sonarr }
-  - { role: newrelic, when: mastermind_install_newrelic }
-
+  - { role: sabnzbd, tags: ['sabnzbd'] }
+  - { role: rtorrent, tags: ['rtorrent'] }
+  - { role: plexmediaserver, tags: ['plexmediaserver'] }
+  - { role: sickbeard, tags: ['sickbeard'] }
+  - { role: couchpotato, tags: ['couchpotato'] }
+  - { role: sonarr, tags: ['sonarr'] }
+  - { role: newrelic, tags: ['newrelic'], when: mastermind_install_newrelic }
