@@ -24,6 +24,6 @@ mastermind
 
 ## TO DO
 
-* Upgrade ruTorrent to 3.7 (changed packaging)
-* ~~Upgrade rTorrent to 0.9.6 (need to update the PPA)~~ - 0.9.6 is available on my [PPA](https://launchpad.net/~jalaziz/+archive/ubuntu/rtorrent)
-* Add configuration instructions to README
+- [ ] Upgrade ruTorrent to 3.7 (changed packaging)
+- [x] ~~Upgrade rTorrent to 0.9.6 (need to update the PPA)~~ - 0.9.6 is available on my [PPA](https://launchpad.net/~jalaziz/+archive/ubuntu/rtorrent)
+- [ ] Add configuration instructions to README
