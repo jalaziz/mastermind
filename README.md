@@ -21,3 +21,8 @@ mastermind
   ```sh
   ansible-playbook -i change.me, site.yml
   ```
+
+## TO DO
+
+* Upgrade ruTorrent to 3.7 (changed packaging)
+* Upgrade rTorrent to 0.9.6 (need to update the PPA)
