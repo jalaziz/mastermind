@@ -28,6 +28,8 @@
   notify: restart sickbeard
 - name: configure autoprocesstv script
   template: src=autoProcessTV.cfg.j2 dest={{ sickbeard_autoprocesstv_script_dir }}/autoProcessTV.cfg
+- name: set autoprocesstv file permissions
+  file: path={{ sickbeard_autoprocesstv_script_dir }} mode=775 state=directory recurse=yes
 - name: set autoprocesstv directory permissions
   file: path={{ sickbeard_autoprocesstv_script_dir }} mode=777 state=directory
 - name: set general config options
