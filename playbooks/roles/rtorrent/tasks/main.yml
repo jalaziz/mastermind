@@ -1,4 +1,6 @@
 ---
+- name: install rtorrent PPA
+  apt_repository: repo='ppa:jalaziz/rtorrent' update_cache=no
 - name: install rtorrent
   apt: name=rtorrent update_cache=yes state=latest
 - name: create {{ rtorrent_user }} user
