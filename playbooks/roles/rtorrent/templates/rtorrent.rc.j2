@@ -76,7 +76,7 @@ encryption = allow_incoming,try_outgoing,enable_retry
 # "auto" (start and stop DHT as needed), or "on" (start DHT immediately).
 # The default is "off". For DHT to work, a session directory must be defined.
 #
-# dht = auto
+dht = off
 
 # UDP port to use for DHT.
 #
@@ -84,11 +84,15 @@ encryption = allow_incoming,try_outgoing,enable_retry
 
 # Enable peer exchange (for torrents not marked private)
 #
-# peer_exchange = yes
+peer_exchange = no
 
 scgi_port = {{ rtorrent_scgi_host }}:{{ rtorrent_scgi_port }}
 
 system.umask.set = {{ rtorrent_umask }}
+
+# logging
+log.open_file = "rtorrent", {{ rtorrent_log_file }}
+log.add_output = "info", "rtorrent"
 
 {% if rtorrent_install_rutorrent %}
 execute = {sh,-c,/usr/bin/php {{ rtorrent_rutorrent_install_path }}/php/initplugins.php &}

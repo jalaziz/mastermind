@@ -1,0 +1,6 @@
+---
+- name: install monit
+  apt: name=monit update_cache=yes state=present
+- name: create monit config
+  template: src=rtorrent.monit.j2 dest=/etc/monit/conf.d
+  notify: reload monit

@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+check process rtorrent with pidfile {{ rtorrent_pid_file }}
+   start program = "/etc/init.d/rtorrent start"
+   stop  program = "/etc/init.d/rtorrent stop"

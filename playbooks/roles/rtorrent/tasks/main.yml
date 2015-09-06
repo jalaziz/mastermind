@@ -11,6 +11,8 @@
       mode: 775
     - path: "{{ rtorrent_watch_dir }}"
       mode: 775
+- name: create log file
+  file: path={{ rtorrent_log_file }} owner={{ rtorrent_user }} group={{ rtorrent_user }} state=touch
 - name: copy rtorrent config
   template: src=rtorrent.rc.j2 dest={{ rtorrent_data_dir }}/.rtorrent.rc owner={{ rtorrent_user }} group={{ rtorrent_user }}
   notify: restart rtorrent

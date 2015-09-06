@@ -4,3 +4,6 @@
   when: rtorrent_service_enable
 - name: restart php5-fpm
   service: name=php5-fpm state=restarted
+- name: reload monit
+  service: name=monit state=reloaded
+  ignore_errors: yes
