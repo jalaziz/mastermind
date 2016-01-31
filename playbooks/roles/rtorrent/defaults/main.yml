@@ -13,11 +13,8 @@ rtorrent_log_file: /var/log/rtorrent.log
 rtorrent_screen_name: rtorrent
 rtorrent_install_rutorrent: yes
 rtorrent_install_rutorrent_plugins: yes
-rtorrent_rutorrent_version: 3.6
-rtorrent_rutorrent_archive: rutorrent-{{ rtorrent_rutorrent_version }}.tar.gz
-rtorrent_rutorrent_plugins_archive: plugins-{{ rtorrent_rutorrent_version }}.tar.gz
-rtorrent_rutorrent_url: http://dl.bintray.com/novik65/generic/{{ rtorrent_rutorrent_archive }}
-rtorrent_rutorrent_plugins_url: http://dl.bintray.com/novik65/generic/{{ rtorrent_rutorrent_plugins_archive }}
+rtorrent_rutorrent_version: master
+rtorrent_rutorrent_repo: https://github.com/Novik/ruTorrent.git
 rtorrent_rutorrent_install_path: /var/www/rutorrent
 rtorrent_rutorrent_autotools_interval: 300
 rtorrent_install_monit: yes

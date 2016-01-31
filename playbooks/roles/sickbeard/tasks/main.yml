@@ -15,7 +15,7 @@
     - path: "{{ sickbeard_pid_dir }}"
     - path: "{{ sickbeard_root_dir }}"
 - name: clone sickbeard repo
-  git: repo={{ sickbeard_repo }} dest={{ sickbeard_install_dir }} version={{ sickbeard_version }}
+  git: repo={{ sickbeard_repo }} dest={{ sickbeard_install_dir }} version={{ sickbeard_version }} force=yes
   notify: restart sickbeard
 - name: fix repo permissions
   file: path={{ sickbeard_install_dir }} owner={{ sickbeard_user }} group={{ sickbeard_user }} recurse=yes

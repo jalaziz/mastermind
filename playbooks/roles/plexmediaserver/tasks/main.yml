@@ -12,8 +12,8 @@
 - name: default config file
   template: src=default.j2 dest=/etc/default/plexmediaserver
   notify: restart plexmediaserver
-- name: install plex keyring
-  apt: name=plex-archive-keyring update_cache=yes state=latest
+#- name: install plex keyring
+#  apt: name=plex-archive-keyring update_cache=yes state=latest
 - name: upgrade plex media server
   apt: name=plexmediaserver update_cache=yes state=latest
   notify: restart plexmediaserver

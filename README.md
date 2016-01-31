@@ -14,7 +14,7 @@ mastermind
 2. Install ansible
 
   ```sh
-  pip install ansible
+  pip install "ansible>=2.0"
   ```
 
 3. Run the playbooks
@@ -24,6 +24,6 @@ mastermind
 
 ## TO DO
 
-- [ ] Upgrade ruTorrent to 3.7 (changed packaging)
+- [x] ~~Upgrade ruTorrent to 3.7 (changed packaging)~~ - Using the Github repo instead
 - [x] ~~Upgrade rTorrent to 0.9.6 (need to update the PPA)~~ - 0.9.6 is available on my [PPA](https://launchpad.net/~jalaziz/+archive/ubuntu/rtorrent)
 - [ ] Add configuration instructions to README

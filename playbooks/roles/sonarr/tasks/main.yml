@@ -11,6 +11,7 @@
   file: path={{ item.path }} owner={{ sonarr_user }} group={{ sonarr_user }} mode={{ item.mode|default("755") }} state=directory
   with_items:
     - path: "{{ sonarr_data_dir }}"
+    - path: "{{ sonarr_config_dir }}"
 - name: test config file existence
   file: path={{ sonarr_config_dir }}/config.xml state=file owner={{ sonarr_user }} group={{ sonarr_user }}
   register: config_file_result

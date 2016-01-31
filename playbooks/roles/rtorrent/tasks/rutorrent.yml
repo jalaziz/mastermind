@@ -10,27 +10,21 @@
     - php5-cli
     - php5-geoip
     - php5-curl
-- name: download rutorrent
-  get_url: url={{ rtorrent_rutorrent_url }} dest=/tmp/{{ rtorrent_rutorrent_archive }} force=yes
-- name: download rutorrent plugins
-  get_url: url={{ rtorrent_rutorrent_plugins_url }} dest=/tmp/{{ rtorrent_rutorrent_plugins_archive }} force=yes
+    - git-core
 - name: create install directory
   file: path={{ rtorrent_rutorrent_install_path|dirname }} state=directory owner=www-data group=www-data
-- name: unpack rutorrent archive
-  unarchive: >
-    src=/tmp/{{ rtorrent_rutorrent_archive }} dest={{ rtorrent_rutorrent_install_path|dirname }} copy=no
-    creates={{ rtorrent_rutorrent_install_path }}/conf/config.php
-  notify: restart php5-fpm
-- name: unpack rutorrent plugins archive
-  unarchive: >
-    src=/tmp/{{ rtorrent_rutorrent_plugins_archive }} dest={{ rtorrent_rutorrent_install_path }} copy=no
-    creates={{ rtorrent_rutorrent_install_path }}/plugins/_getdir
+- name: download rutorrent
+  git: >
+    repo={{ rtorrent_rutorrent_repo }} dest={{ rtorrent_rutorrent_install_path }}
+    version={{ rtorrent_rutorrent_version }} update=yes force=yes
   notify:
-    - restart rtorrent
-    - restart php5-fpm
+   - restart php5-fpm
+   - restart rtorrent
 - name: adjust rutorrent autotools plugin inteval
   lineinfile: >
     dest={{ rtorrent_rutorrent_install_path }}/plugins/autotools/conf.php
     regexp="^(\s*)\$autowatch_interval" line="\1$autowatch_interval = {{ rtorrent_rutorrent_autotools_interval }};"
     backrefs=yes state=present
   notify: restart rtorrent
+- name: fix share directory ownership
+  file: path={{ rtorrent_rutorrent_install_path }}/share owner=www-data group=www-data recurse=yes

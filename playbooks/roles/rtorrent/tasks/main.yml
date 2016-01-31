@@ -18,19 +18,17 @@
 - name: copy rtorrent config
   template: src=rtorrent.rc.j2 dest={{ rtorrent_data_dir }}/.rtorrent.rc owner={{ rtorrent_user }} group={{ rtorrent_user }}
   notify: restart rtorrent
-- name: install screen
-  apt: name=screen state=present
+- block:
+    - name: install screen
+      apt: name=screen state=present
+    - name: create rtorrent init
+      template: src=rtorrent.init.j2 dest=/etc/init.d/rtorrent mode=755
+      notify: restart rtorrent
+    - name: enable rtorrent service
+      service: name=rtorrent enabled=yes
+    - name: create rtorrent default config
+      template: src=rtorrent.default.j2 dest=/etc/default/rtorrent
+      notify: restart rtorrent
   when: rtorrent_service_enable
-- name: create rtorrent init
-  template: src=rtorrent.init.j2 dest=/etc/init.d/rtorrent mode=755
-  when: rtorrent_service_enable
-  notify: restart rtorrent
-- name: enable rtorrent service
-  service: name=rtorrent enabled=yes
-  when: rtorrent_service_enable
-- name: create rtorrent default config
-  template: src=rtorrent.default.j2 dest=/etc/default/rtorrent
-  when: rtorrent_service_enable
-  notify: restart rtorrent
 - include: rutorrent.yml
   when: rtorrent_install_rutorrent
