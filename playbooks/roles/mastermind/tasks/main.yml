@@ -13,6 +13,7 @@
     - path: "{{ mastermind_media_dir }}"
       mode: "755"
     - path: "{{ sickbeard_tv_download_dir }}"
+    - path: "{{ sickbeard_torrent_dir }}"
     - path: "{{ couchpotato_renamer_from }}"
 - name: install nginx-extras
   apt: name=nginx-extras update_cache=yes state=latest
@@ -63,3 +64,11 @@
     - restart sickbeard
     - restart couchpotato
     - restart sonarr
+- name: add rtorrent to service groups
+  user: name={{ rtorrent_user }} groups={{ item }} append=yes
+  with_items:
+    - "{{ sickbeard_user }}"
+    - "{{ sonarr_user }}"
+    - "{{ couchpotato_user }}"
+  notify:
+    - restart rtorrent

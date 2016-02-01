@@ -7,6 +7,8 @@ rtorrent_port_range: 49164-49164
 rtorrent_scgi_host: 127.0.0.1
 rtorrent_scgi_port: 5000
 rtorrent_umask: "022"
+rtorrent_download_rate: 0
+rtorrent_upload_rate: 0
 rtorrent_service_enable: yes
 rtorrent_pid_file: /var/run/rtorrent.pid
 rtorrent_log_file: /var/log/rtorrent.log
